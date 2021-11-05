@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import maderski.bluetoothautoplaymusic.BuildConfig
 import maderski.bluetoothautoplaymusic.R
 import maderski.bluetoothautoplaymusic.analytics.FirebaseHelper
 import maderski.bluetoothautoplaymusic.analytics.constants.ActivityNameConstants
@@ -30,6 +31,7 @@ import maderski.bluetoothautoplaymusic.ui.fragments.OptionsFragment
 import maderski.bluetoothautoplaymusic.ui.fragments.TimePickerFragment
 import maderski.bluetoothautoplaymusic.wrappers.SystemServicesWrapper
 import org.koin.android.ext.android.inject
+import java.util.*
 
 class MainActivity : AppCompatActivity(),
         TimePickerFragment.TimePickerDialogListener,
@@ -122,8 +124,10 @@ class MainActivity : AppCompatActivity(),
         val bottomNavBar = findViewById<View>(R.id.bottom_navigation)
         bottomNavBar.animate().alpha(0f).start()
         val view = findViewById<View>(R.id.toolbar)
-        val snackbar = Snackbar.make(view, "Created by: Jason Maderski" + "\n" +
-                "Version: " + getBAPMAppVersion(), Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(view, """
+            Created by: Jason Maderski
+            Build: ${getBAPMAppVersion()} at ${BuildConfig.BUILD_TIME}
+        """.trimIndent(), Snackbar.LENGTH_LONG)
         snackbar.view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(view: View) {}
 
